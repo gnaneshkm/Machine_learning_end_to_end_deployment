@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>All predictions</title>
+    <style>
+      table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      td,
+      th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+      th:last-child,
+      td:last-child {
+        background-color: rgb(242 162 57);
+      }
+
+      tr:nth-child(even) {
+        background-color: #aaa;
+      }
+      .text-center {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div>List of available pages:</div>
+    <ul>
+      <li><a href="/">All predictions</a></li>
+      <li><a href="/predict">Predict an object</a></li>
+    </ul>
+    <br />
+    <br />
+    <p class="text-center">List of all predictions made:</p>
+    <table>
+      <tr>
+        <th>Object Identifier</th>
+        <th>J2000 Right Ascension (r-band)</th>
+        <th>J2000 Declination (r-band)</th>
+        <th>u-band</th>
+        <th>g-band</th>
+        <th>r-band</th>
+        <th>i-band</th>
+        <th>z-band</th>
+        <th>Run Number</th>
+        <th>Camera column</th>
+        <th>Field number</th>
+        <th>Object Identifier</th>
+        <th>Final Redshift</th>
+        <th>Plate number</th>
+        <th>MJD of observation</th>
+        <th>Fiber ID</th>
+        <th>Prediction Time</th>
+        <th>Prediction</th>
+      </tr>
+      {% for row in rows %}
+      <tr>
+        <td>{{row.objid }}</td>
+        <td>{{row.ra }}</td>
+        <td>{{row.dec }}</td>
+        <td>{{row.u }}</td>
+        <td>{{row.g }}</td>
+        <td>{{row.r }}</td>
+        <td>{{row.i }}</td>
+        <td>{{row.z }}</td>
+        <td>{{row.run }}</td>
+        <td>{{row.camcol }}</td>
+        <td>{{row.field }}</td>
+        <td>{{row.specobjid }}</td>
+        <td>{{row.redshift }}</td>
+        <td>{{row.plate }}</td>
+        <td>{{row.mjd }}</td>
+        <td>{{row.fiberid }}</td>
+        <td>{{row.predictionTime}}</td>
+        <td>{{row.prediction }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </body>
+</html>

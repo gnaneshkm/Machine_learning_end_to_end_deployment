@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Predict an object</title>
+    <style>
+      table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+      }
+
+      td,
+      th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+      }
+
+      tr:nth-child(even) {
+        background-color: #dddddd;
+      }
+      .text-center {
+        text-align: center;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div>List of available pages:</div>
+    <ul>
+      <li><a href="/">All predictions</a></li>
+      <li><a href="/predict">Predict an object</a></li>
+    </ul>
+    <br />
+    <br />
+    <p class="text-center">
+      Enter the below values to predict if the object is Galaxy/Star/QOS
+    </p>
+    <table>
+      <tr>
+        <th>Object Identifier</th>
+        <td><input type="text" name="objid" /></td>
+      </tr>
+      <tr>
+        <th>J2000 Right Ascension (r-band)</th>
+        <td><input type="text" name="r" /></td>
+      </tr>
+      <tr>
+        <th>J2000 Declination (r-band)</th>
+
+        <td><input type="text" name="dec" /></td>
+      </tr>
+      <tr>
+        <th>u-band</th>
+        <td><input type="text" name="u" /></td>
+      </tr>
+      <tr>
+        <th>g-band</th>
+        <td><input type="text" name="g" /></td>
+      </tr>
+      <tr>
+        <th>r-band</th>
+        <td><input type="text" name="r" /></td>
+      </tr>
+      <tr>
+        <th>i-band</th>
+        <td><input type="text" name="i" /></td>
+      </tr>
+      <tr>
+        <th>z-band</th>
+        <td><input type="text" name="z" /></td>
+      </tr>
+      <tr>
+        <th>Run Number</th>
+        <td><input type="text" name="run" /></td>
+      </tr>
+      <tr>
+        <th>Camera column</th>
+        <td><input type="text" name="camcol" /></td>
+      </tr>
+      <tr>
+        <th>Field number</th>
+        <td><input type="text" name="field" /></td>
+      </tr>
+      <tr>
+        <th>Object Identifier</th>
+        <td><input type="text" name="specobjid" /></td>
+      </tr>
+      <tr>
+        <th>Final Redshift</th>
+        <td><input type="text" name="redshift" /></td>
+      </tr>
+      <tr>
+        <th>Plate number</th>
+        <td><input type="text" name="plate" /></td>
+      </tr>
+      <tr>
+        <th>MJD of observation</th>
+        <td><input type="text" name="mjd" /></td>
+      </tr>
+      <tr>
+        <th>Fiber ID</th>
+        <td><input type="text" name="fiberid" /></td>
+      </tr>
+      <tr></tr>
+    </table>
+    <br />
+    <button onclick="predict()">Predict</button>
+    <h3 class="result"></h3>
+    <script>
+      function predict() {
+        var payload = {
+          objid: document.querySelector('input[name="objid"]').value,
+          ra: document.querySelector('input[name="r"]').value,
+          dec: document.querySelector('input[name="dec"]').value,
+          u: document.querySelector('input[name="u"]').value,
+          g: document.querySelector('input[name="g"]').value,
+          r: document.querySelector('input[name="r"]').value,
+          i: document.querySelector('input[name="i"]').value,
+          z: document.querySelector('input[name="z"]').value,
+          run: document.querySelector('input[name="run"]').value,
+          camcol: document.querySelector('input[name="camcol"]').value,
+          field: document.querySelector('input[name="field"]').value,
+          specobjid: document.querySelector('input[name="specobjid"]').value,
+          redshift: document.querySelector('input[name="redshift"]').value,
+          plate: document.querySelector('input[name="plate"]').value,
+          mjd: document.querySelector('input[name="mjd"]').value,
+          fiberid: document.querySelector('input[name="fiberid"]').value,
+        };
+        fetch("/", {
+          method: "POST",
+          body: JSON.stringify(payload),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => response.json())
+          .then((response) => {
+            document.getElementsByClassName(
+              "result"
+            )[0].innerHTML = `Predicted output is <b>${response.prediction}</b> Also this value is saved in <a href="/">prediction page</a>.`;
+          });
+      }
+    </script>
+  </body>
+</html>
