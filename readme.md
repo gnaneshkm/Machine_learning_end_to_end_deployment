@@ -1,3 +1,4 @@
+#Steps to run the Application
 Install packages: `pip install -r requirements.txt`
 
 Create/Activate an virtual environment: $ `. venv/bin/activate`
